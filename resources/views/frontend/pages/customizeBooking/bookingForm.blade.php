@@ -11,7 +11,7 @@
                         <label for="" style="color: black; font-size:30px;"><strong>Food</strong></label>
                         @foreach($foods as $data)
                         <div class="form-check">
-                            <input class="form-check-input food-checkbox" type="checkbox" name="food_id[]" value="{{ $data->id }}" data-price="{{ $data->price }}" required>
+                            <input class="form-check-input food-checkbox" type="checkbox" name="food_id[]" value="{{ $data->id }}" data-price="{{ $data->price }}" >
                             <label class="form-check-label" for="food" style="color: black; font-size:20px;">
                                 {{ $data->name }} ({{ $data->price }} /-per person)
                             </label>

@@ -28,7 +28,8 @@
             @endphp
             @foreach($customizeBookingDetails as $key => $booking)
             <tr>
-                <th scope="row">{{ $customizeBookingDetails + $key  }}</th>
+                <th scope="row">{{ $customizeBookingDetails->firstItem() + $key }}</th>
+
                 <td>{{ $booking->transaction_id }}</td>
                 <td>{{ $booking->event->name ?? 'N/A' }}</td>
                 <td>
