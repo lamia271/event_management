@@ -27,7 +27,7 @@
           <div>
             <h4 style="color:white ;">Address</h4>
             <p style="color:white ;">
-              Sector-11, Uttara, Dhaka<br>
+              tongi, Uttara, Dhaka<br>
             </p>
           </div>
         </div>
@@ -36,8 +36,8 @@
         <div class="copyright-text">
           <div>
             <p style="color:white ;">
-              <strong>Phone:</strong>01725900442<br>
-              <strong>Email:</strong> likhonijeedni@gmail.com<br>
+              <strong>Phone:</strong>017000000000<br>
+              <strong>Email:</strong> lamia@gmail.com<br>
             </p>
           </div>
         </div>
