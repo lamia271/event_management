@@ -38,13 +38,13 @@ class WebProfileController extends Controller
     }
 
     public function appointmentDetails()
-    {
-        $appointmentDetails = Appointment::where('customer_id',auth('customerGuard')->user()->id)->get();
-        // dd($appointments);
-        $appointmentDetails = Appointment::paginate(20); 
-        return view('frontend.pages.userProfile.appointmentDetails', compact('appointmentDetails'));
+{
+    $appointmentDetails = Appointment::where('customer_id', auth('customerGuard')->user()->id)
+                                     ->orderBy('date', 'desc')
+                                     ->paginate(20);
 
-    }
+    return view('frontend.pages.userProfile.appointmentDetails', compact('appointmentDetails'));
+}
 
     public function editProfile()
     {
