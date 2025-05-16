@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderPlacedMail;
 use Carbon\Carbon;
 use App\Models\Booking;
 use App\Models\Event;
@@ -9,6 +10,7 @@ use App\Models\Package;
 use App\Models\PackageService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class WebBookingController extends Controller
@@ -39,7 +41,7 @@ class WebBookingController extends Controller
             return redirect()->back()->withErrors($checkValidation)->withInput();
         }
 
-        Booking::create([
+        $booking = Booking::create([
             'name' => $request->name,
             'customer_id' => auth('customerGuard')->user()->id,
             'package_id' => $request->package_id,
@@ -55,7 +57,8 @@ class WebBookingController extends Controller
             'payment_status' => 'pending',
         ]);
 
-        notify()->success('Booked Package Successfully.Please Pay Within 2 Days.'); 
+        Mail::to($request->email)->send(new OrderPlacedMail($booking));
+        notify()->success('Booked Package Successfully.Please Pay Within 2 Days.');
         return redirect()->route('booking.details');
     }
 
@@ -64,7 +67,7 @@ class WebBookingController extends Controller
         $booking = Booking::findOrFail($id);
         $booking->update([
             'status' => 'Cancelled'
-        ]); 
+        ]);
 
         notify()->success('Booking cancel successfully.');
         return redirect()->back();
@@ -81,6 +84,6 @@ class WebBookingController extends Controller
         $currentDate = Carbon::now()->format('d M, Y');
         $pdf = PDF::loadView('frontend.pages.booking.receipt', compact('booking', 'currentDate'));
 
-        return $pdf->download('receipt_'.$booking->transaction_id.'.pdf');
+        return $pdf->download('receipt_' . $booking->transaction_id . '.pdf');
     }
 }

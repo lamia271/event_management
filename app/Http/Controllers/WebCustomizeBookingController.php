@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon; 
+use App\Mail\OrderPlacedMail;
+use Carbon\Carbon;
 use App\Models\CustomizeDecoration;
 use App\Models\CustomizeFood;
 use App\Models\CustomizeBooking;
 use App\Models\Event;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class WebCustomizeBookingController extends Controller
@@ -34,7 +36,7 @@ class WebCustomizeBookingController extends Controller
             'end_time' => 'required',
             'venue' => 'required',
             'guest' => 'required|integer|min:1',
-            'total_amount' => 'required', 
+            'total_amount' => 'required',
         ]);
 
         if ($checkValidation->fails()) {
@@ -63,7 +65,9 @@ class WebCustomizeBookingController extends Controller
         $booking->foods()->attach($request->food_id);
         $booking->decorations()->attach($request->decoration_id);
 
-        notify()->success('Booked Successfully.Please Pay Within 2 Days.'); 
+        Mail::to($request->email)->send(new OrderPlacedMail($booking));
+
+        notify()->success('Booked Successfully.Please Pay Within 2 Days.');
         return redirect()->route('customize.booking.details');
     }
 
@@ -80,7 +84,7 @@ class WebCustomizeBookingController extends Controller
 
     public function customizeDownloadReceipt($id)
     {
-        $booking = CustomizeBooking::with('event','foods','decorations', 'customer')->findOrFail($id);
+        $booking = CustomizeBooking::with('event', 'foods', 'decorations', 'customer')->findOrFail($id);
 
         if ($booking->payment_status !== 'Paid') {
             return redirect()->back()->with('error', 'Payment not completed yet.');
@@ -91,7 +95,6 @@ class WebCustomizeBookingController extends Controller
 
         $pdf = PDF::loadView('frontend.pages.customizeBooking.receipt', compact('booking', 'currentDate'));
 
-        return $pdf->download('receipt_'.$booking->transaction_id.'.pdf');
+        return $pdf->download('receipt_' . $booking->transaction_id . '.pdf');
     }
-
 }
