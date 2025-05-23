@@ -40,9 +40,12 @@
                                     <select class="form-control" name="time">
                                         <option value="" disabled selected>Select Time</option>
                                         <option value="11:00" {{ old('time') == '11:00' ? 'selected' : '' }}>11:00</option>
-                                        <option value="13:40" {{ old('time') == '13:40' ? 'selected' : '' }}>13:40</option>
-                                        <option value="15:40" {{ old('time') == '15:40' ? 'selected' : '' }}>15:40</option>
-                                        <option value="17:40" {{ old('time') == '17:40' ? 'selected' : '' }}>17:40</option>
+                                        <option value="12:00" {{ old('time') == '12:00' ? 'selected' : '' }}>12:00</option>
+                                        <option value="13:00" {{ old('time') == '13:00' ? 'selected' : '' }}>13:00</option>
+                                        <option value="14:00" {{ old('time') == '14:00' ? 'selected' : '' }}>14:00</option>
+                                        <option value="15:00" {{ old('time') == '15:00' ? 'selected' : '' }}>15:00</option>
+                                        <option value="16:00" {{ old('time') == '16:00' ? 'selected' : '' }}>16:00</option>
+                                        <option value="17:00" {{ old('time') == '17:00' ? 'selected' : '' }}>17:00</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-white-md">Get Appointment</button>
