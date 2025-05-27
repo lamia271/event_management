@@ -11,7 +11,7 @@ class AppointmentController extends Controller
 {
     public function appointmentDetails()
     {
-        $appointments = Appointment::paginate(4);
+        $appointments = Appointment::paginate(20);
         return view('backend.pages.appointment.appointmentDetails', compact('appointments'));
     }
 
@@ -25,10 +25,10 @@ class AppointmentController extends Controller
         $checkValidation = Validator::make(
             $request->all(),
             [
-                'user_name' => 'required',
-                'phone_number' => 'required',
-                'email' => 'required|email',
-                'date' => 'required|date',
+                'user_name' => 'required|string|max:255',
+    'phone_number' => 'required|string|max:20',
+    'email' => 'required|email|max:255',
+    'date' => 'required|date|after_or_equal:today',
                 'time' => 'required'
             ]
         );

@@ -121,8 +121,11 @@
         <td>{{ $booking->guest }}</td>
         <td>{{ $booking->transaction_id }}</td>
         <td class="date">{{ $booking->date }}</td>
-        <td>{{ $booking->start_time }}</td>
-        <td>{{ $booking->end_time }}</td>
+        <td>{{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }}</td>
+<td>{{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}</td>
+
+        <!-- <td>{{ $booking->start_time }}</td>
+        <td>{{ $booking->end_time }}</td> -->
         <td>{{ $booking->total_amount }}</td>
         <td class="status" data-id="{{ $booking->id }}">{{ $booking->status }}</td>
         <td>

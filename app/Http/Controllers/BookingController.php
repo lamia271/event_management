@@ -15,7 +15,7 @@ class BookingController extends Controller
     public function bookinglist()
     {
         $bookings = Booking::with('package.event')->get();
-        $bookings = Booking::paginate(4);
+        $bookings = Booking::paginate(20);
 
         return view('backend.pages.booking.bookingDetails', compact('bookings'));
     }
