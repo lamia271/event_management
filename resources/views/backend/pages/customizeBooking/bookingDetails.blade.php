@@ -130,7 +130,7 @@
         <td class="status" data-id="{{ $booking->id }}">{{ $booking->status }}</td>
         <td>
           @if($booking->status == 'Accept' && $booking->created_at->diffInDays(now()) > 2 && $booking->payment_status !== 'Paid')
-          Not Paid & Booking Rejected
+          Not Paid 
           @elseif($booking->status == 'Accept')
           {{$booking->payment_status}}
           @endif
