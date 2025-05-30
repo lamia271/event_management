@@ -37,6 +37,7 @@ class WebCustomizeBookingController extends Controller
             'venue' => 'required',
             'guest' => 'required|integer|min:1',
             'total_amount' => 'required',
+            'address'=> 'required'
         ]);
 
         if ($checkValidation->fails()) {
@@ -58,6 +59,7 @@ class WebCustomizeBookingController extends Controller
             'venue' => $request->venue,
             'guest' => $request->guest,
             'total_amount' => $request->total_amount,
+            'address'=>$request->address,
             'status' => 'Pending',
             'payment_status' => 'Pending',
         ]);
