@@ -27,9 +27,9 @@
 									<input name="password" type="password" class="form-control main" placeholder="Password" required>
 								</div>
 
-								<div class="col-md-6">
+								<!-- <div class="col-md-6">
 									<input name="image" type="file" class="form-control main" placeholder="Upload Image">
-								</div>
+								</div> -->
 
 								<div class="col-md-6">
 									<input name="address" type="text" class="form-control main" placeholder="Enter Address" required>

@@ -64,7 +64,9 @@
       <td>{{$data->phone_number}}</td>
       <td>{{$data->email}}</td>
       <td>{{ \Carbon\Carbon::parse($data->date)->format('m/d/y') }}</td>
-      <td>{{$data->time}}</td>
+      <td>{{ \Carbon\Carbon::parse($data->time)->format('h:i A') }}</td>
+
+
       <td>{{$data->status}}</td>
     </tr>
     @endforeach

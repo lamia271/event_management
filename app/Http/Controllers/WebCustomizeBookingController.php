@@ -29,15 +29,14 @@ class WebCustomizeBookingController extends Controller
             'name' => 'required',
             'food_id' => 'required|array',
             'decoration_id' => 'required|array',
-            'phone' => 'required',
-            'email' => 'required',
-            'date' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
-            'venue' => 'required',
-            'guest' => 'required|integer|min:1',
-            'total_amount' => 'required',
-            'address'=> 'required'
+            'phone' => 'required|string|max:20',
+    'email' => 'required|email|max:255',
+    'date' => 'required|date|after_or_equal:today',
+    'start_time' => 'required|date_format:H:i',
+    'end_time' => 'required|date_format:H:i|after:start_time',
+    'venue' => 'required|string|max:255',
+    'guest' => 'required|integer|min:1',
+    'total_amount' => 'required|numeric|min:0',
         ]);
 
         if ($checkValidation->fails()) {

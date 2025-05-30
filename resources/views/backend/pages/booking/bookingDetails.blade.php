@@ -57,13 +57,16 @@
         <td>{{$data->guest}}</td>
         <td>{{$data->transaction_id}}</td>
         <td class="date">{{$data->date}}</td>
-        <td>{{$data->start_time}}</td>
-        <td>{{$data->end_time}}</td>
+        <td>{{ \Carbon\Carbon::parse($data->start_time)->format('h:i A') }}</td>
+<td>{{ \Carbon\Carbon::parse($data->end_time)->format('h:i A') }}</td>
+
+        <!-- <td>{{$data->start_time}}</td>
+        <td>{{$data->end_time}}</td> -->
         <td>{{$data->total_amount}}</td>
         <td class="status" data-id="{{$data->id}}" data-created-at="{{$data->created_at}}">{{$data->status}}</td>
         <td>
           @if($data->status == 'Accept' && $data->created_at->diffInDays(now()) > 2 && $data->payment_status !== 'Paid')
-          Not Paid & Booking Rejected
+          Not Paid 
           @elseif($data->status == 'Accept')
           {{$data->payment_status}}
           @endif

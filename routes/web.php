@@ -135,13 +135,13 @@ use App\Models\Appointment;
 
       //Home Page->
       Route::get('/', [WebHomeController::class, 'home'])->name('home.page');
-
+Route::get('/sample/work', [WebSampleWorkController::class, 'sampleWork'])->name('sample.work');
       //Registration->
       Route::get('/registration', [WebCustomerController::class, 'registration'])->name('registration');
       Route::post('/do-registration', [WebCustomerController::class, 'doRegistration'])->name('do-registration');
 
       //Sample Work->
-      Route::get('/sample/work', [WebSampleWorkController::class, 'sampleWork'])->name('sample.work');
+      
 
       //packages->      
       Route::get('/all/events', [WebPackageController::class, 'allEvents'])->name('all.events');

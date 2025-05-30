@@ -12,7 +12,7 @@ class FoodController extends Controller
     public function foodList()
     {
         $foods = Food::with('event')->get();
-        $foods = Food::paginate(4);
+        $foods = Food::paginate(20);
         return view('backend.pages.food.foodList', compact('foods'));
     }
 
@@ -90,7 +90,7 @@ class FoodController extends Controller
             [
                 'name' => 'required',
                 'event_id' => 'required',
-                'price'=>'required'
+                'price'=>'required|integer|min:1'
             ]
         );
 
