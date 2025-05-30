@@ -87,6 +87,7 @@
         <th>Start Time</th>
         <th>End Time</th>
         <th>Total Amount</th>
+        <th>address</th>
         <th>Status</th>
         <th>Payment Status</th>
         <th class="action">Action</th>
@@ -127,6 +128,7 @@
         <!-- <td>{{ $booking->start_time }}</td>
         <td>{{ $booking->end_time }}</td> -->
         <td>{{ $booking->total_amount }}</td>
+        <td>{{ $booking->address }}</td>
         <td class="status" data-id="{{ $booking->id }}">{{ $booking->status }}</td>
         <td>
           @if($booking->status == 'Accept' && $booking->created_at->diffInDays(now()) > 2 && $booking->payment_status !== 'Paid')

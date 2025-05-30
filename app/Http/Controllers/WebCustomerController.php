@@ -23,7 +23,7 @@ class WebCustomerController extends Controller
     'email' => 'required|email|unique:users,email', // adjust table if not 'users'
     'address' => 'required|string|max:255',
     'phone' => 'required|digits:11',
-    'password' => 'required|string|min:6|confirmed', // |size:10000'
+    'password' => 'required|string|min:6', // |size:10000'
 
             ]
          );

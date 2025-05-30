@@ -73,6 +73,10 @@
                                     <label style="color:white;"><strong>Total Amount</strong></label>
                                     <input name="total_amount" id="total_amount" type="text" class="form-control main" required readonly>
                                 </div>
+                                <div class="col-md-6">
+                                    <label style="color:white;"><strong>Address</strong></label>
+                                    <input name="address" id="address" type="text" class="form-control main" required >
+                                </div>
                                 <div class="col-12" style="padding-left: 150px;">
                                     <button type="submit" class="btn btn-white-md">Confirm Booking</button>
                                 </div>
