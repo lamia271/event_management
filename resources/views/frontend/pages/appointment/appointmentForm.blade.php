@@ -60,11 +60,8 @@
 </section>
 
 <script>
-    // Get today's date
     const today = new Date();
-    // Format today's date in YYYY-MM-DD format
     const minDate = today.toISOString().split('T')[0];
-    // Set the min attribute to today's date
     document.getElementById('datePicker').setAttribute('min', minDate);
 </script>
 @endsection
