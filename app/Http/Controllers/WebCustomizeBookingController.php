@@ -58,7 +58,7 @@ class WebCustomizeBookingController extends Controller
             'venue' => $request->venue,
             'guest' => $request->guest,
             'total_amount' => $request->total_amount,
-            'address'=>$request->address,
+            // 'address'=>$request->address,
             'status' => 'Pending',
             'payment_status' => 'Pending',
         ]);
