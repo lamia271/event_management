@@ -22,7 +22,7 @@ class OrderPlacedMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Your Order Has Been Placed')
+        return $this->subject('Your Booking Confirmation - Eventre')
             ->view('emails.order_place');
     }
 }
