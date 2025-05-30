@@ -102,9 +102,9 @@
                         <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                             <div class="receipt-right" >
                                 <h5>Eventre</h5>
-                                <p>01725900442</p>
-                                <p><a href="mailto:likhonijeedni@gmail.com">likhonijeedni@gmail.com</a></p>
-                                <p>Sector-11, Uttara, Dhaka</p>
+                                <p>01771250000</p>
+                                <p><a href="mailto:lamianazat205@gmail.com">lamianazat205@gmail.com</a></p>
+                                <p>Tongi,Gazipur, Dhaka</p>
                             </div>
                         </div>
                     </div>
