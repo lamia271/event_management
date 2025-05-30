@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('customize_booking_food', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customize_booking_id')->constrained('customize_bookings')->onDelete('cascade');
-            $table->foreignId('food_id')->constrained('foods')->onDelete('cascade');
+            $table->foreignId('food_id')->constrained('customize_foods')->onDelete('cascade');
             $table->timestamps();
         });
     }

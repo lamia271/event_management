@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('customize_booking_decoration', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customize_booking_id')->constrained('customize_bookings')->onDelete('cascade');
-            $table->foreignId('decoration_id')->constrained('decorations')->onDelete('cascade');
+            $table->foreignId('decoration_id')->constrained('customize_decorations')->onDelete('cascade');
             $table->timestamps();
         });
     }
