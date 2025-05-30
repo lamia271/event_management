@@ -8,7 +8,7 @@
           <div>
             <h4 style="color:white ;">Address</h4>
             <p style="color:white ;">
-              tongi, Uttara, Dhaka<br>
+              Tongi, Uttara, Dhaka<br>
             </p>
           </div>
         </div>
