@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Booking Confirmation - Eventure</title>
+    <title>Booking Confirmation - Eventre</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -68,14 +68,17 @@
         <h2>Hi {{ $order->name }},</h2>
 
         <p>Thank you for your booking with <strong>Eventre</strong>! We are excited to help make your event a success.</p>
-
+ 
+ 
+        <p><span class="highlight">Name:</span> {{ $order->name }}</p>
         <p><span class="highlight">Booking ID:</span> {{ $order->id }}</p>
+       
         <p><span class="highlight">Transaction ID:</span> {{ $order->transaction_id }}</p>
         <p><span class="highlight">Total Amount:</span> BDT {{ $order->total_amount }}</p>
 
         <p>We will notify you once your booking is confirmed and processing begins. If you have any questions, feel free to contact us anytime.</p>
 
-        <p>Regards,<br><strong>Eventure Team</strong></p>
+        <p>Regards,<br><strong>Eventre Team</strong></p>
     </div>
 
     <div class="email-footer">
