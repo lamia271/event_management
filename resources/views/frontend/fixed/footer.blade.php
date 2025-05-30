@@ -7,9 +7,9 @@
           <img src="{{url('templateImage/footer-logo.png')}}" alt="logo" class="img-fluid center-image">
           </div>
           <ul class="social-links-footer list-inline">
-            <li class="list-inline-item">
+            <!-- <li class="list-inline-item">
               <a href="https://www.facebook.com/profile.php?id=100082265148847"><i class="fa fa-facebook"></i></a>
-            </li>
+            </li> -->
            
           </ul>
         </div>

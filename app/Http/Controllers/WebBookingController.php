@@ -26,15 +26,15 @@ class WebBookingController extends Controller
         $package = Package::with(['packageServices.food', 'packageServices.decoration'])->findOrFail($request->package_id);
 
         $checkValidation = Validator::make($request->all(), [
-            'name' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'date' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
-            'venue' => 'required',
-            'guest' => 'required',
-            'total_amount' => 'required',
+        'name' => 'required|string|max:255',
+        'phone' => 'required|string|regex:/^[0-9\-\+\s\(\)]+$/|min:10',
+        'email' => 'required|email|max:255',
+        'date' => 'required|date|after_or_equal:today',
+        'start_time' => 'required|date_format:H:i',
+        'end_time' => 'required|date_format:H:i|after:start_time',
+        'venue' => 'required|string|max:255',
+        'guest' => 'required|integer|min:1',
+        'total_amount' => 'required|numeric|min:0',
         ]);
 
         if ($checkValidation->fails()) {

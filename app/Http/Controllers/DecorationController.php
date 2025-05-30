@@ -88,7 +88,7 @@ class DecorationController extends Controller
             [
                 'name' => 'required',
                 'event_id' => 'required',
-                'price'=>'required'
+                'price' => 'required|integer|min:1'
             ]
         );
 

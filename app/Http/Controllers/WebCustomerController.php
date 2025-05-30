@@ -19,12 +19,11 @@ class WebCustomerController extends Controller
       $checkValidation = Validator::make(
             $request->all(),
             [
-               'name' => 'required',
-               'email' => 'required',
-               'address' => 'required',
-               
-               'phone' => 'required',
-               'password' => 'required'       // |size:10000'
+               'name' => 'required|string|max:255',
+    'email' => 'required|email|unique:users,email', // adjust table if not 'users'
+    'address' => 'required|string|max:255',
+    'phone' => 'required|digits:11',
+    'password' => 'required|string|min:6|confirmed', // |size:10000'
 
             ]
          );

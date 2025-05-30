@@ -31,10 +31,12 @@
                                     <input required name="email" type="email" value="{{ auth('customerGuard')->user()->email }}" class="form-control main" placeholder="Enter Your Email" required readonly>
                                     <label style="color:white;"><strong>Phone Number</strong></label>
                                     <input required name="phone" value="{{ auth('customerGuard')->user()->phone }}" type="tel" class="form-control main" placeholder="Enter Your Number" required readonly>
+
                                     <div class="form-group">
                                         <label style="color:white;"><strong>Date</strong></label>
                                         <input required name="date" type="date" id="datePicker" class="form-control" value="{{ old('date') }}" placeholder="Enter date">
                                     </div>
+
                                     <label style="color:white;"><strong>Start Time</strong></label>
                                     <input name="start_time" id="start_time" type="time" class="form-control main" required>
                                     <label style="color:white;"><strong>End Time</strong></label>
@@ -42,9 +44,10 @@
                                     <label style="color:white;"><strong>Venue</strong></label>
                                     <input name="venue" id="venue" type="text" class="form-control main" required>
                                     <label style="color:white;"><strong>Guest</strong></label>
-                                    <input name="guest" id="guest" type="number" class="form-control main" required>
+                                    <input name="guest" id="guest" type="number" class="form-control main" min="0" required>
                                     <label style="color:white;"><strong>Total Amount</strong></label>
                                     <input name="total_amount" id="total_amount" type="text" class="form-control main" required readonly>
+
                                     <button type="submit" class="btn btn-white-md">Confirm Booking</button>
                                 </div>
                                 <div class="col-md-2"></div>
@@ -56,36 +59,30 @@
             </div>
         </div>
     </section>
+
     <script>
-               document.addEventListener('DOMContentLoaded', function() {
-            // Get all food prices
+        document.addEventListener('DOMContentLoaded', function () {
             const foodPrices = Array.from(document.querySelectorAll('.food-price')).map(input => parseFloat(input.value));
             const totalFoodPrice = foodPrices.reduce((sum, price) => sum + price, 0);
-
-            // Get the decoration price (assuming only one decoration item)
             const decorationPrice = parseFloat(document.querySelector('.decoration-price').value) || 0;
 
-            document.getElementById('guest').addEventListener('input', function() {
-                const guestCount = parseInt(this.value) || 0; // Ensure it's a number or 0 if not valid
-                const totalAmount = (guestCount * totalFoodPrice) + decorationPrice;
+            document.getElementById('guest').addEventListener('input', function () {
+                const guestCount = parseInt(this.value) || 0;
+                const totalAmount = guestCount > 0 ? (guestCount * totalFoodPrice) + decorationPrice : 0;
                 document.getElementById('total_amount').value = totalAmount.toFixed(2);
             });
-        });
 
-        document.getElementById('start_time').addEventListener('change', function() {
-            var startTime = this.value;
-            document.getElementById('end_time').setAttribute('min', startTime);
-        });
+            document.getElementById('start_time').addEventListener('change', function () {
+                var startTime = this.value;
+                document.getElementById('end_time').setAttribute('min', startTime);
+            });
 
-       
-        const today = new Date();
-       
-        const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 5);
-        
-        const minDate = tomorrow.toISOString().split('T')[0];
-        
-        document.getElementById('datePicker').setAttribute('min', minDate);
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 5);
+            const minDate = tomorrow.toISOString().split('T')[0];
+            document.getElementById('datePicker').setAttribute('min', minDate);
+        });
     </script>
 </div>
 @endsection
