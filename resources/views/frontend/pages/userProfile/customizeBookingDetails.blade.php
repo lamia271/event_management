@@ -61,22 +61,23 @@
                 <td>
                     @if($booking->payment_status != 'Paid' && $booking->created_at->diffInDays(now()) > 2)
 
-                    @if($booking->status == 'Pending')
+                    @elseif($booking->status == 'Pending')
                     <a class="btn-sm btn-danger" href="{{ route('cancel.customize.booking', $booking->id) }}">Cancel Booking</a>
                     @elseif($booking->status == 'Accept' && $booking->payment_status != 'Paid' && $booking->created_at->diffInDays(now()) <= 2) <div>
                         <a class="btn-sm btn-primary" href="{{ route('customize.make.payment', $booking->id) }}">Make Payment</a>
-
-                        <a class="btn-sm btn-danger" href="{{ route('cancel.customize.booking', $booking->id) }}">Cancel Booking</a>
-
-                        @elseif($booking->payment_status == 'Paid')
-                        <a class="btn-sm btn-success" href="{{ route('customize.download.receipt', $booking->id) }}">Download Receipt</a>
-                        @endif
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    {{$customizeBookingDetails->links()}}
+</div>
+<div>
+    <a class="btn-sm btn-danger" href="{{ route('cancel.customize.booking', $booking->id) }}">Cancel Booking</a>
+</div>
+@elseif($booking->payment_status == 'Paid')
+<a class="btn-sm btn-success" href="{{ route('customize.download.receipt', $booking->id) }}">Download Receipt</a>
+@endif
+</td>
+</tr>
+@endforeach
+</tbody>
+</table>
+{{$customizeBookingDetails->links()}}
 
 </div>
 @endsection
