@@ -3,161 +3,148 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type="text/css">
+    <style>
         body {
             background: #eee;
-            margin-top: 20px;
+            margin: 0;
             font-family: 'Open Sans', sans-serif;
         }
-        .text-danger strong {
-            color: #9f181c;
-        }
+
         .receipt-main {
-            background: #ffffff;
-            border-bottom: 12px solid #333333;
+            background: #fff;
+            border-bottom: 12px solid #333;
             border-top: 12px solid #9f181c;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            padding: 40px 9px !important;
-            position: relative;
+            padding: 40px;
+            margin: 30px auto;
+            max-width: 800px;
             box-shadow: 0 1px 21px #acacac;
-            color: #333333;
+            color: #333;
         }
-        .receipt-main p {
-            color: #333333;
-            line-height: 1.42857;
+
+        .company-info {
+            text-align: center;
+            margin-bottom: 20px;
         }
-        .receipt-footer h1 {
-            font-size: 15px;
-            font-weight: 400 !important;
-            margin: 0 !important;
+
+        .company-info h2 {
+            margin: 0;
+            text-transform: uppercase;
         }
-        .receipt-main::after {
-            background: #414143;
-            content: "";
-            height: 5px;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: -13px;
+
+        .company-info p {
+            margin: 2px 0;
+            font-size: 14px;
         }
-        .receipt-main thead {
-            background: #414143;
+
+        .customer-info {
+            text-align: right;
+            margin-bottom: 30px;
         }
-        .receipt-main thead th {
+
+        .customer-info h4 {
+            margin: 0 0 5px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .table th, .table td {
+            border: 1px solid #999;
+            padding: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #414143;
             color: #fff;
         }
-        .receipt-right h5 {
+
+        .footer {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .signature {
+            margin-top: 60px;
+            height: 100px;
+        }
+
+        .signature p {
+            margin-top: 70px;
+            border-top: 1px solid #000;
+            width: 200px;
+            text-align: center;
+        }
+
+        .thank-you {
+            text-align: center;
+            margin-top: 30px;
             font-size: 16px;
-            font-weight: bold;
-            margin: 0 0 7px 0;
         }
-        .receipt-right p {
-            font-size: 12px;
-            margin: 0px;
-        }
-        .receipt-main td {
-            padding: 9px 20px !important;
-        }
-        .receipt-main th {
-            padding: 13px 20px !important;
-        }
-        .receipt-main td {
-            font-size: 13px;
-        }
-        .receipt-main td p:last-child {
-            margin: 0;
-            padding: 0;
-        }
-        .receipt-main td h2 {
-            font-size: 20px;
-            font-weight: 900;
-            margin: 0;
-            text-transform: uppercase;
-        }
-        .receipt-header-mid .receipt-left h1 {
-            font-weight: 100;
-            margin: 34px 0 0;
-            text-align: right;
-            text-transform: uppercase;
-        }
-        .receipt-header-mid {
-            margin: 24px 0;
-            overflow: hidden;
-        }
-        #container {
-            background-color: #dcdcdc;
-        }
+
     </style>
 </head>
 <body>
-    <div class="col-md-12">
-        <div class="row">
-            <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
-                <div class="row">
-                    <div class="receipt-header">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="receipt-left"></div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 text-right">
-                            <div class="receipt-right" >
-                                <h5>Eventre</h5>
-                                <p>01771250000</p>
-                                <p><a href="mailto:lamianazat205@gmail.com">lamianazat205@gmail.com</a></p>
-                                <p>Tongi,Gazipur, Dhaka</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="receipt-header receipt-header-mid">
-                        <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                            <div class="receipt-right">
-                                <h5>{{ $booking->customer->name }} </h5>
-                                <p><b>Mobile :</b> {{ $booking->customer->phone }}</p>
-                                <p><b>Email :</b> {{ $booking->customer->email }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Event</th>
-                                <th>Package</th>
-                                <th>Amount</th>
-                                <th>Date</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>{{ $booking->package->event->name }}</strong></td>
-                                <td><strong>{{ $booking->package->name }}</strong></td>
-                                <td><strong>BDT. {{ $booking->total_amount}}</strong></td>
-                                <td><strong>{{ $booking->date }}</strong></td>
-                                <td><strong>{{ $booking->start_time }}</strong></td>
-                                <td><strong>{{ $booking->end_time }}</strong></td>
-                                <td><strong>{{ $booking->payment_status }}</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row">
-                    <div class="receipt-header receipt-header-mid receipt-footer">
-                        <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                            <div class="receipt-right">
-                                <p><strong><b>Date :</b> {{ $currentDate }}</strong></p>
-                                <h5 style="color: black;">Thanks for Booking</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+<div class="receipt-main">
+    <!-- Company Info -->
+    <div class="company-info">
+        <h2>Eventre</h2>
+        <p>01771250000</p>
+        <p><a href="mailto:lamianazat205@gmail.com">lamianazat205@gmail.com</a></p>
+        <p>Tongi, Gazipur, Dhaka</p>
+    </div>
+
+    <!-- Customer Info -->
+    <div class="customer-info">
+        <h4>{{ $booking->customer->name }}</h4>
+        <p><strong>Mobile:</strong> {{ $booking->customer->phone }}</p>
+        <p><strong>Email:</strong> {{ $booking->customer->email }}</p>
+    </div>
+
+    <!-- Booking Details Table -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Event</th>
+            <th>Package</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ $booking->package->event->name }}</td>
+            <td>{{ $booking->package->name }}</td>
+            <td>BDT {{ $booking->total_amount }}</td>
+            <td>{{ $booking->date }}</td>
+            <td>{{ $booking->start_time }}</td>
+            <td>{{ $booking->end_time }}</td>
+            <td>{{ $booking->payment_status }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>Date:</strong> {{ $currentDate }}</p>
+
+        <div class="signature">
+            <p>Customer Signature</p>
+        </div>
+
+        <div class="thank-you">
+            <p><strong>Thank you for your booking with Eventre!</strong></p>
         </div>
     </div>
+</div>
+
 </body>
 </html>
