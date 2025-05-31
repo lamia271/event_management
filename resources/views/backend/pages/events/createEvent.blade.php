@@ -11,10 +11,10 @@
     <input required name="event_name" type="text" class="form-control" id="" placeholder="Enter Event name">
   </div>
 
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="">Event Address</label>
     <input required name="event_address" type="text" class="form-control" id="" placeholder="Enter Event address">
-  </div>
+  </div> -->
 
   <br>
 

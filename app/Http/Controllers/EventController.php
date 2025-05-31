@@ -66,7 +66,7 @@ class EventController extends Controller
         Event::create([
             // database                  //blade/view/form 
                 'name' => $request->event_name,
-                'address' => $request->event_address,
+                //'address' => $request->event_address,
                 'image' => $event_image
             ]);
 
