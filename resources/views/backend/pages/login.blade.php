@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+     <title>Admin Login</title>
     <link rel="stylesheet" href="{{ url('csslogin/style.css') }}">
     <style>
         /* Custom styles for the Remember Me checkbox */

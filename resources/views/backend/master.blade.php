@@ -1,19 +1,22 @@
 
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-<head><script src="{{url('backend/assets/js/color-modes.js')}}"></script>
-
+<head>
+  <script src="{{url('backend/assets/js/color-modes.js')}}"></script>
 
   @notifyCss
 
-    <link href="{{url('backend/assets/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="{{url('backend/assets/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-    <meta name="theme-color" content="#712cf9">
-    
-    <!-- Custom styles for this template -->
-    <link href="{{url('backend/dashboard.css')}}" rel="stylesheet">
-  </head>
+  <meta name="theme-color" content="#712cf9">
+
+  <title>Admin Dashboard</title>
+
+  <!-- Custom styles for this template -->
+  <link href="{{url('backend/dashboard.css')}}" rel="stylesheet">
+</head>
+
   <body>
     
 
