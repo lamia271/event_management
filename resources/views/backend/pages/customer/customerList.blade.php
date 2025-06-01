@@ -33,18 +33,18 @@
   $startId = ($currentPage - 1) * $perPage + 1;
   @endphp
 @foreach($customerDetails as $key => $data)
- 
     <tr>
-      <th scope="row">{{$startId + $key}}</th>
-      <td>{{$data->name}}</td>
-      <td>{{$data->email}}</td>
-      <td>{{$data->phone}}</td>
-      <td>{{$data->address}}</td>
-     
-        <a class="btn btn-danger" href="{{route('admin.delete.customer')}}">Delete</a>
+      <th scope="row">{{ $startId + $key }}</th>
+      <td>{{ $data->name }}</td>
+      <td>{{ $data->email }}</td>
+      <td>{{ $data->phone }}</td>
+      <td>{{ $data->address }}</td>
+      <td>
+        <a class="btn btn-danger" href="{{ route('admin.delete.customer', $data->id) }}">Delete</a>
       </td> 
     </tr>
-@endforeach    
+@endforeach
+
   </tbody>
 </table>
 {{$customerDetails->links()}}
