@@ -24,9 +24,8 @@ class WebProfileController extends Controller
     {
         $bookingDetails = Booking::with('package.event')->where('customer_id', auth('customerGuard')->user()->id)->get();
         // dd($bookingDetails);
-        $bookingDetails = Booking::paginate(20); 
+        $bookingDetails = Booking::paginate(20);
         return view('frontend.pages.userProfile.bookingDetails', compact('bookingDetails'));
-
     }
 
     public function customizeBookingDetails()
@@ -34,22 +33,21 @@ class WebProfileController extends Controller
         $customizeBookingDetails = CustomizeBooking::with(['event', 'foods', 'decorations'])->where('customer_id', auth('customerGuard')->user()->id)->get();
         $customizeBookingDetails = CustomizeBooking::paginate(20);
         return view('frontend.pages.userProfile.customizeBookingDetails', compact('customizeBookingDetails'));
-
     }
 
     public function appointmentDetails()
-{
-    $appointmentDetails = Appointment::where('customer_id', auth('customerGuard')->user()->id)
-                                     ->orderBy('date', 'desc')
-                                     ->paginate(20);
+    {
+        $appointmentDetails = Appointment::where('customer_id', auth('customerGuard')->user()->id)
+            ->orderBy('date', 'desc')
+            ->paginate(20);
 
-    return view('frontend.pages.userProfile.appointmentDetails', compact('appointmentDetails'));
-}
+        return view('frontend.pages.userProfile.appointmentDetails', compact('appointmentDetails'));
+    }
 
     public function editProfile()
     {
         $profileData = Customer::find(auth('customerGuard')->user()->id);
-        return view('frontend.pages.userProfile.profileEdit', compact('profileData')); 
+        return view('frontend.pages.userProfile.profileEdit', compact('profileData'));
     }
 
     public function updateProfile(Request $request)
@@ -57,17 +55,17 @@ class WebProfileController extends Controller
         $profileData = Customer::find(auth('customerGuard')->user()->id);
 
         $checkValidation = Validator::make(
-                $request->all(),
-                [
-                    
-                    'name' => 'required',
-                    'email' => 'required',
-                    'address' => 'required',
-                    'phone' => 'required',
+            $request->all(),
+            [
+
+                'name' => 'required',
+                'email' => 'required',
+                'address' => 'required',
+                'phone' => 'required',
 
 
-                ]
-            );
+            ]
+        );
 
         if ($checkValidation->fails()) {
             notify()->error("Something Went Wrong.");
@@ -86,22 +84,23 @@ class WebProfileController extends Controller
         }
 
         $profileData->update([
-            
+
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
             'image' => $customer_image,
 
-        ]); 
+        ]);
         notify()->success('Profile Updated Successfully');
         return redirect()->route('view.profile');
     }
 
     public function makePayment($id)
     {
-
         $booking = Booking::find($id);
+        $booking->payment_status = 'Paid';
+        $booking->save();
         $this->payment($booking);
         return redirect()->route('view.profile');
     }
@@ -115,7 +114,7 @@ class WebProfileController extends Controller
         $post_data['tran_id'] = $payment->transaction_id; // tran_id must be unique
 
         # CUSTOMER INFORMATION
-        $post_data['cus_name'] =$payment->customer_id ;
+        $post_data['cus_name'] = $payment->customer_id;
         $post_data['cus_email'] = $payment->email;
         $post_data['cus_add1'] = 'Customer Address';
         $post_data['cus_add2'] = "";
@@ -148,7 +147,7 @@ class WebProfileController extends Controller
         $post_data['value_d'] = "ref004";
         // dd($post_data);
         #Before  going to initiate the payment order status need to insert or update as Pending.
-       
+
 
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
@@ -158,20 +157,23 @@ class WebProfileController extends Controller
             print_r($payment_options);
             $payment_options = array();
         }
-
     }
 
     public function customizeMakePayment($id)
     {
 
         $booking = CustomizeBooking::find($id);
+
+        $booking->payment_status = 'Paid';
+        $booking->save();
         $this->customizePayment($booking);
+
         return redirect()->route('view.profile');
     }
 
     public function customizePayment($payment)
     {
-    
+
         // dd($payment);
         $post_data = array();
         $post_data['total_amount'] = (int)$payment->total_amount; # You cant not pay less than 10
@@ -179,7 +181,7 @@ class WebProfileController extends Controller
         $post_data['tran_id'] = $payment->transaction_id; // tran_id must be unique
 
         # CUSTOMER INFORMATION
-        $post_data['cus_name'] =$payment->customer_id ;
+        $post_data['cus_name'] = $payment->customer_id;
         $post_data['cus_email'] = $payment->email;
         $post_data['cus_add1'] = 'Customer Address';
         $post_data['cus_add2'] = "";
@@ -212,7 +214,7 @@ class WebProfileController extends Controller
         $post_data['value_d'] = "ref004";
         // dd($post_data);
         #Before  going to initiate the payment order status need to insert or update as Pending.
-       
+
 
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
@@ -222,7 +224,6 @@ class WebProfileController extends Controller
             print_r($payment_options);
             $payment_options = array();
         }
-
     }
 
 
@@ -233,6 +234,4 @@ class WebProfileController extends Controller
         notify()->success('Profile Deleted Successfully');
         return redirect()->back();
     }
-
-
 }

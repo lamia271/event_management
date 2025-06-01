@@ -47,7 +47,7 @@
                 <td>{{ $booking->date }}</td>
                 <td>{{ $booking->start_time }}</td>
                 <td>{{ $booking->end_time }}</td>
-                <td>
+                <td> 
                     @if($booking->status == 'Cancelled')
                     Booking Cancelled
                     @elseif($booking->status == 'Reject')
