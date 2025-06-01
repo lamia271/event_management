@@ -19,7 +19,7 @@
 						<img style="width: 300px;height:200px;" src="{{url('images/events/',$data->image)}}" alt="speaker" class="img-fluid">
 						<div class=""></div></div>
 					    <div class="content text-center">
-						<h5><a href="{{route('all.packages',$data->id)}}">{{$data->name}}</a></h5>
+						<h5><a href="{{route('all.packages',$data->id)}}" class="btn btn-success">{{$data->name}}</a></h5>
 					</div>
 				</div>
 			</div>
