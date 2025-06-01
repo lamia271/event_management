@@ -57,8 +57,12 @@ use App\Models\Appointment;
 
             //Foods->
             Route::get('/food/list', [FoodController::class, 'foodList'])->name('admin.food.list');
-            Route::get('/create/food', [FoodController::class, 'createFood'])->name('admin.create.food');
+
+            
+            Route::get('/create/food', [FoodController::class, 'createFood'])->name('admin.create.food');    
             Route::post('/food/store', [FoodController::class, 'foodStore'])->name('admin.food.store');
+
+
             Route::get('/food/edit/{food_id}', [FoodController::class, 'foodEdit'])->name('admin.food.edit');
             Route::put('/food/update/{food_id}', [FoodController::class, 'foodUpdate'])->name('admin.food.update');
             Route::get('/food/delete/{food_id}', [FoodController::class, 'foodDelete'])->name('admin.food.delete');

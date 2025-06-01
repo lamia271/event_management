@@ -102,7 +102,7 @@ class WebCustomerController extends Controller
    public function customerList()
 
    {
-      $customerDetails = Customer::paginate(4);
+      $customerDetails = Customer::paginate(20);
       return view('backend.pages.customer.customerList', compact('customerDetails'));
    }
 

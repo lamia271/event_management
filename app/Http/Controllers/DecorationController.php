@@ -12,7 +12,7 @@ class DecorationController extends Controller
     public function decorationList()
     {
         $decorations = Decoration::with('event')->get();
-        $decorations = Decoration::paginate(4);
+        $decorations = Decoration::paginate(15);
         // dd($events);
         return view('backend.pages.decoration.decorationList',compact('decorations'));
     }

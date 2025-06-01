@@ -11,7 +11,7 @@ class CustomizeBookingController extends Controller
     {
         $customizeBookingDetails = CustomizeBooking::with(['event', 'foods', 'decorations'])->get();
         // dd($customizeBookingDetails);
-        $customizeBookingDetails=CustomizeBooking::paginate(4);
+        $customizeBookingDetails=CustomizeBooking::paginate(20);
 
         return view('backend.pages.customizeBooking.bookingDetails', compact('customizeBookingDetails'));
     }

@@ -12,35 +12,35 @@
             <div class="dashboard-box user-card">
                 <h4 class="dashboard-title">Total Booking</h4>
                 <p class="dashboard-content">{{ $totalBookings }}</p>
-                <a href="#" class="btn-primary">View Details</a>
+                <a href="{{route('admin.booking')}}" class="btn-primary">View Details</a>
             </div>
         </div>
         <div class="col-sm-6 col-lg-3 mb-4">
             <div class="dashboard-box category-card">
                 <h4 class="dashboard-title">Total Customer</h4>
                 <p class="dashboard-content">{{ $totalCustomers }}</p>
-                <a href="#" class="btn-primary">View Details</a>
+                <a href="{{route('admin.customer.list')}}" class="btn-primary">View Details</a>
             </div>
         </div>
         <div class="col-sm-6 col-lg-3 mb-4">
             <div class="dashboard-box menu-card">
                 <h4 class="dashboard-title">Total Appointment</h4>
                 <p class="dashboard-content">{{ $totalAppointments }}</p>
-                <a href="#" class="btn-primary">View Details</a>
+                <a href="{{route('admin.appointment.details')}}" class="btn-primary">View Details</a>
             </div>
         </div>
         <div class="col-sm-6 col-lg-3 mb-4">
             <div class="dashboard-box decorations-card">
                 <h4 class="dashboard-title">Total Decorations</h4>
                 <p class="dashboard-content">{{ $totalDecorations }}</p>
-                <a href="#" class="btn-primary">View Details</a>
+                <a href="{{route('admin.decoration.list')}}" class="btn-primary">View Details</a>
             </div>
         </div>
         <div class="col-sm-6 col-lg-3 mb-4">
             <div class="dashboard-box order-card">
                 <h4 class="dashboard-title">Total Event</h4>
                 <p class="dashboard-content">{{ $totalEvents }}</p>
-                <a href="#" class="btn-primary">View Details</a>
+                <a href="{{route('admin.event.list')}}" class="btn-primary">View Details</a>
             </div>
         </div>
     </div>

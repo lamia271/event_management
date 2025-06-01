@@ -12,7 +12,7 @@ class EventController extends Controller
 {
     public function eventList()
     { 
-        $events = Event::paginate(4);
+        $events = Event::paginate(10);
         // dd($events);
         return view('backend.pages.events.eventList', compact('events'));
     }

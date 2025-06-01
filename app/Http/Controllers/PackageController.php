@@ -16,7 +16,7 @@ class PackageController extends Controller
     {
 
         $packages = Package::all();
-        $packages = Package::paginate(4);
+        $packages = Package::paginate(10);
         return view('backend.pages.package.packageList', compact('packages'));
     }
 

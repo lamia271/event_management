@@ -12,6 +12,7 @@ class FoodController extends Controller
     public function foodList()
     {
         $foods = Food::with('event')->get();
+        
         $foods = Food::paginate(20);
         return view('backend.pages.food.foodList', compact('foods'));
     }
@@ -29,7 +30,7 @@ class FoodController extends Controller
                   });
         }
 
-        $foods = $query->paginate(4);
+        $foods = $query->paginate(15);
 
         return view('backend.pages.food.foodSearch', compact('foods'));
     }
