@@ -54,10 +54,11 @@ class WebBookingController extends Controller
             'venue' => $request->venue,
             'guest' => $request->guest,
             'total_amount' => $request->total_amount,
+            'dues' => $request->total_amount,
             'payment_status' => 'pending',
         ]);
 
-        Mail::to($request->email)->send(new OrderPlacedMail($booking));
+        // Mail::to($request->email)->send(new OrderPlacedMail($booking));
         notify()->success('Booked Package Successfully.Please Pay Within 2 Days.');
         return redirect()->route('booking.details');
     }
@@ -77,7 +78,7 @@ class WebBookingController extends Controller
     {
         $booking = Booking::with('package.event', 'customer')->findOrFail($id);
 
-        if ($booking->payment_status !== 'Paid') {
+        if ($booking->payment_status == 'pending') {
             return redirect()->back()->with('error', 'Payment not completed yet.');
         }
 

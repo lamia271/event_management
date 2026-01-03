@@ -16,4 +16,9 @@ class Food extends Model
     {
         return $this->belongsTo(Event::class);
     }
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
 }

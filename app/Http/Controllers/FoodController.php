@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Food;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator; 
 
@@ -11,7 +12,7 @@ class FoodController extends Controller
 {
     public function foodList()
     {
-        $foods = Food::with('event')->get();
+        $foods = Food::with(['event', 'vendor'])->get();
         
         $foods = Food::paginate(20);
         return view('backend.pages.food.foodList', compact('foods'));
@@ -27,6 +28,9 @@ class FoodController extends Controller
                   ->orWhere('price', 'LIKE', '%' . $search . '%')
                   ->orWhereHas('event', function ($q) use ($search) {
                       $q->where('name', 'LIKE', '%' . $search . '%');
+                  })
+                  ->orWhereHas('vendor', function ($q) use ($search) {
+                      $q->where('name', 'LIKE', '%' . $search . '%');
                   });
         }
 
@@ -38,7 +42,8 @@ class FoodController extends Controller
     public function createFood()
     {
         $events = Event::all();
-        return view('backend.pages.food.createFood',compact('events'));
+        $vendors = Vendor::all();
+        return view('backend.pages.food.createFood',compact('events', 'vendors'));
     }
 
     public function foodStore(Request $request)
@@ -52,6 +57,7 @@ class FoodController extends Controller
             [
                 'name' => 'required',
                 'event_id' => 'required',
+                'vendor_id' => 'required',
                 'price' => 'required|integer|min:1',
             ]
         );
@@ -65,6 +71,7 @@ class FoodController extends Controller
         Food::create([
                 'name' => $request->name,
                 'event_id' => $request->event_id,
+                'vendor_id' => $request->vendor_id,
                 'price' => $request->price,
                 
             ]);
@@ -77,8 +84,9 @@ class FoodController extends Controller
     public function foodEdit(Request $request, $food_id)
     {
         $events= Event::all();
+        $vendors= Vendor::all();
         $foods = Food::find($food_id);
-        return view('backend.pages.food.foodEditForm', compact('foods','events'));
+        return view('backend.pages.food.foodEditForm', compact('foods','events', 'vendors'));
     }
 
     public function  foodUpdate(Request $request, $food_id)
@@ -90,7 +98,8 @@ class FoodController extends Controller
             $request->all(),
             [
                 'name' => 'required',
-                'event_id' => 'required',
+                'event_id' =>  'required',
+                'vendor_id' =>  'required',
                 'price'=>'required|integer|min:1'
             ]
         );
@@ -104,6 +113,7 @@ class FoodController extends Controller
         $foods->update([
                 'name' => $request->name,
                 'event_id' => $request->event_id,
+                'vendor_id' => $request->vendor_id,
                 'price' => $request->price
             ]);
         notify()->success('Food Updated Successfully.');

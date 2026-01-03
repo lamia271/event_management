@@ -22,6 +22,17 @@
      </select>
   </div>
 
+  <br>
+  <div class="form-group">
+    <label for="">Vendor</label>
+    <select class="form-control" name="vendor_id" id="">
+    <option value ="{{$decorations->vendor->id}}">{{$decorations->vendor->name}}</option>
+      @foreach ($vendors as $data)
+     <option value ="{{$data->id}}">{{$data->name}}</option>
+     @endforeach 
+     </select>
+  </div>
+
  <br>
 
   <div class="form-group">

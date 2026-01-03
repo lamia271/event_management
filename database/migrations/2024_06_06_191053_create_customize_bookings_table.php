@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('venue');
             $table->integer('guest');
             $table->integer('total_amount');
+            $table->integer('dues')->default(0);
             $table->string('status')->default('Pending');
             $table->string('payment_status')->default('Pending');
             $table->timestamps(); 

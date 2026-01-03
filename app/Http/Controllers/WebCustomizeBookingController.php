@@ -58,6 +58,7 @@ class WebCustomizeBookingController extends Controller
             'venue' => $request->venue,
             'guest' => $request->guest,
             'total_amount' => $request->total_amount,
+            'dues' => $request->total_amount,
             // 'address'=>$request->address,
             'status' => 'Pending',
             'payment_status' => 'Pending',
@@ -66,7 +67,7 @@ class WebCustomizeBookingController extends Controller
         $booking->foods()->attach($request->food_id);
         $booking->decorations()->attach($request->decoration_id);
 
-        Mail::to($request->email)->send(new OrderPlacedMail($booking));
+        // Mail::to($request->email)->send(new OrderPlacedMail($booking));
 
         notify()->success('Booked Successfully.Please Pay Within 2 Days.');
         return redirect()->route('customize.booking.details');
@@ -87,7 +88,7 @@ class WebCustomizeBookingController extends Controller
     {
         $booking = CustomizeBooking::with('event', 'foods', 'decorations', 'customer')->findOrFail($id);
 
-        if ($booking->payment_status !== 'Paid') {
+        if ($booking->payment_status == 'pending') {
             return redirect()->back()->with('error', 'Payment not completed yet.');
         }
 

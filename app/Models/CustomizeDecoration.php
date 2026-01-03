@@ -10,7 +10,7 @@ class CustomizeDecoration extends Model
 {
     use HasFactory;
     protected $table = 'customize_decorations';
-    protected $guarded=[];
+    protected $guarded = [];
 
     public function event()
     {
@@ -20,5 +20,10 @@ class CustomizeDecoration extends Model
     public function customizeBookings()
     {
         return $this->belongsToMany(CustomizeBooking::class, 'customize_booking_decoration');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
     }
 }

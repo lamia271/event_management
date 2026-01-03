@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('foods', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('vendor_id');
             $table->integer('event_id');
             $table->string('price');
             $table->timestamps();

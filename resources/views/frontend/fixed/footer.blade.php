@@ -18,7 +18,7 @@
           <div>
             <p style="color:white ;">
               <strong>Phone:</strong>017000000000<br>
-              <strong>Email:</strong> lamia@gmail.com<br>
+              <strong>Email:</strong> admin@gmail.com<br>
             </p>
           </div>
         </div>

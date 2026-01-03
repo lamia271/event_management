@@ -42,6 +42,15 @@ class CustomizeBookingController extends Controller
         return redirect()->back()->with('success', 'Booking marked as Event Done');
     }
 
+    public function customizeMarkPaymentDone($id) {
+        $booking = CustomizeBooking::findOrFail($id);
+        $booking->payment_status = 'Paid';
+        $booking->dues = 0;
+        $booking->save();
+    
+        return redirect()->back()->with('success', 'Booking marked as Payment Done');
+    }
+
     public function customizeSearch(Request $request)
     {
         $searchResult = collect(); // Initialize an empty collection

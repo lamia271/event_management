@@ -35,6 +35,13 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('admin.vendor.*') ? 'active-link' : '' }}"
+           href="{{ route('admin.vendor.list') }}">
+          <i class="bi bi-calendar-event"></i> Vendor
+        </a>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('admin.event.*') ? 'active-link' : '' }}"
            href="{{ route('admin.event.list') }}">
           <i class="bi bi-calendar-event"></i> Events

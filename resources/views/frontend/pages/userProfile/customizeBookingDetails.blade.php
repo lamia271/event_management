@@ -17,6 +17,7 @@
                 <th scope="col">Start_time</th>
                 <th scope="col">End_time</th>
                 <th scope="col">Payment Status</th>
+                <th scope="col">Dues</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -27,57 +28,57 @@
             $startId = ($currentPage - 1) * $perPage + 1;
             @endphp
             @foreach($customizeBookingDetails as $key => $booking)
-            <tr>
-                <th scope="row">{{ $customizeBookingDetails->firstItem() + $key }}</th>
+                <tr>
+                    <th scope="row">{{ $customizeBookingDetails->firstItem() + $key }}</th>
+                    <td>{{ $booking->transaction_id }}</td>
+                    <td>{{ $booking->event->name ?? 'N/A' }}</td>
+                    <td>
+                        @foreach($booking->foods as $food)
+                        {{ $food->name }},<br>
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach($booking->decorations as $decoration)
+                        {{ $decoration->name }},<br>
+                        @endforeach
+                    </td>
+                    <td>{{ $booking->venue }}</td>
+                    <td>{{ $booking->total_amount }}</td>
+                    <td>{{ $booking->date }}</td>
+                    <td>{{ $booking->start_time }}</td>
+                    <td>{{ $booking->end_time }}</td>
+                    <td> 
+                        @if($booking->status == 'Cancelled')
+                        Booking Cancelled
+                        @elseif($booking->status == 'Reject')
+                        Booking Rejected
+                        @elseif($booking->payment_status != 'Paid' && $booking->created_at->diffInDays(now()) > 2)
+                        Not Paid & Booking Rejected
+                        @else
+                        {{ $booking->payment_status }}
+                        @endif
+                    </td>
+                    <td>{{ $booking->dues }} TK</td>
+                    <td>
+                        @if($booking->payment_status == 'pending' && $booking->created_at->diffInDays(now()) > 2)
 
-                <td>{{ $booking->transaction_id }}</td>
-                <td>{{ $booking->event->name ?? 'N/A' }}</td>
-                <td>
-                    @foreach($booking->foods as $food)
-                    {{ $food->name }},<br>
-                    @endforeach
-                </td>
-                <td>
-                    @foreach($booking->decorations as $decoration)
-                    {{ $decoration->name }},<br>
-                    @endforeach
-                </td>
-                <td>{{ $booking->venue }}</td>
-                <td>{{ $booking->total_amount }}</td>
-                <td>{{ $booking->date }}</td>
-                <td>{{ $booking->start_time }}</td>
-                <td>{{ $booking->end_time }}</td>
-                <td> 
-                    @if($booking->status == 'Cancelled')
-                    Booking Cancelled
-                    @elseif($booking->status == 'Reject')
-                    Booking Rejected
-                    @elseif($booking->payment_status != 'Paid' && $booking->created_at->diffInDays(now()) > 2)
-                    Not Paid & Booking Rejected
-                    @else
-                    {{ $booking->payment_status }}
-                    @endif
-                </td>
-                <td>
-                    @if($booking->payment_status != 'Paid' && $booking->created_at->diffInDays(now()) > 2)
-
-                    @elseif($booking->status == 'Pending')
-                    <a class="btn-sm btn-danger" href="{{ route('cancel.customize.booking', $booking->id) }}">Cancel Booking</a>
-                    @elseif($booking->status == 'Accept' && $booking->payment_status != 'Paid' && $booking->created_at->diffInDays(now()) <= 2) <div>
-                        <a class="btn-sm btn-primary" href="{{ route('customize.make.payment', $booking->id) }}">Make Payment</a>
-</div>
-<div>
-    <a class="btn-sm btn-danger" href="{{ route('cancel.customize.booking', $booking->id) }}">Cancel Booking</a>
-</div>
-@elseif($booking->payment_status == 'Paid')
-<a class="btn-sm btn-success" href="{{ route('customize.download.receipt', $booking->id) }}">Download Receipt</a>
-@endif
-</td>
-</tr>
-@endforeach
-</tbody>
-</table>
-{{$customizeBookingDetails->links()}}
-
+                        @elseif($booking->status == 'Pending')
+                            <a class="btn-sm btn-danger" href="{{ route('cancel.customize.booking', $booking->id) }}">Cancel Booking</a>
+                        @elseif($booking->status == 'Accept' && $booking->payment_status == 'Pending' && $booking->created_at->diffInDays(now()) <= 2) 
+                            <div>
+                                <a class="btn-sm btn-primary" href="{{ route('customize.make.payment', $booking->id) }}">Make Payment</a>
+                            </div>
+                            <div>
+                                <a class="btn-sm btn-danger" href="{{ route('cancel.customize.booking', $booking->id) }}">Cancel Booking</a>
+                            </div>
+                        @elseif($booking->payment_status !== 'pending')
+                            <a class="btn-sm btn-success" href="{{ route('customize.download.receipt', $booking->id) }}">Download Receipt</a>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+    {{$customizeBookingDetails->links()}}
 </div>
 @endsection

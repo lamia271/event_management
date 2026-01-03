@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CustomizeDecoration;
 use App\Models\Event;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,7 +12,7 @@ class CustomizeDecorationController extends Controller
 {
     public function customizeDecorationList()
     {
-        $customizeDecorations = CustomizeDecoration::with('event')->get();
+        $customizeDecorations = CustomizeDecoration::with(['event', 'vendor'])->get();
         $customizeDecorations = CustomizeDecoration::paginate(4);
         return view('backend.pages.customizeDecoration.customizeDecorationList', compact('customizeDecorations'));             
     }
@@ -26,6 +27,9 @@ class CustomizeDecorationController extends Controller
                   ->orWhere('price', 'LIKE', '%' . $search . '%')
                   ->orWhereHas('event', function ($q) use ($search) {
                       $q->where('name', 'LIKE', '%' . $search . '%');
+                  })
+                  ->orWhereHas('vendor', function ($q) use ($search) {
+                      $q->where('name', 'LIKE', '%' . $search . '%');
                   });
         }
 
@@ -38,7 +42,8 @@ class CustomizeDecorationController extends Controller
     public function createCustomizeDecoration()
     {
         $events = Event::all();
-        return view('backend.pages.customizeDecoration.createCustomizeDecoration',compact('events'));
+        $vendors = Vendor::all();
+        return view('backend.pages.customizeDecoration.createCustomizeDecoration',compact('events', 'vendors'));
     }
 
     public function customizeDecorationStore(Request $request)
@@ -52,6 +57,7 @@ class CustomizeDecorationController extends Controller
             [
                 'name' => 'required',
                 'event_id' => 'required',
+                'vendor_id' => 'required',
                 'price' => 'required|integer|min:1',
             ]
         );
@@ -65,6 +71,7 @@ class CustomizeDecorationController extends Controller
         CustomizeDecoration::create([
                 'name' => $request->name,
                 'event_id' => $request->event_id,
+                'vendor_id' => $request->vendor_id,
                 'price' => $request->price,
                 
             ]);
@@ -77,8 +84,9 @@ class CustomizeDecorationController extends Controller
     public function customizeDecorationEdit(Request $request, $decoration_id)
     {
         $events= Event::all();
+        $vendors= Vendor::all();
         $decorations = CustomizeDecoration::find($decoration_id);
-        return view('backend.pages.customizeDecoration.customizeDecorationEditForm', compact('decorations','events'));
+        return view('backend.pages.customizeDecoration.customizeDecorationEditForm', compact('decorations','events', 'vendors'));
 
     }
 
@@ -92,6 +100,7 @@ class CustomizeDecorationController extends Controller
             [
                 'name' => 'required',
                 'event_id' => 'required',
+                'vendor_id' => 'required',
                 'price'=>'required'
             ]
         );
@@ -105,6 +114,7 @@ class CustomizeDecorationController extends Controller
         $decorations->update([
                 'name' => $request->name,
                 'event_id' => $request->event_id,
+                'vendor_id' => $request->vendor_id,
                 'price' => $request->price
             ]);
         notify()->success('Customize Decoration Updated Successfully.');

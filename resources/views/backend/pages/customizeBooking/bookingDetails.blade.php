@@ -98,6 +98,7 @@
           <th>Start Time</th>
           <th>End Time</th>
           <th>Total Amount</th>
+          <th>Dues</th>
           <th>Address</th>
           <th>Status</th>
           <th>Payment Status</th>
@@ -135,10 +136,11 @@
           <td>{{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }}</td>
           <td>{{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}</td>
           <td>{{ $booking->total_amount }}</td>
+          <td>{{$booking->dues}}</td>
           <td>{{ $booking->address }}</td>
           <td class="status" data-id="{{ $booking->id }}">{{ $booking->status }}</td>
           <td>
-            @if($booking->status == 'Accept' && $booking->created_at->diffInDays(now()) > 2 && $booking->payment_status !== 'Paid')
+            @if($booking->status == 'Accept' && $booking->created_at->diffInDays(now()) > 2 && $booking->payment_status == 'pending')
               Not Paid
             @elseif($booking->status == 'Accept')
               {{ $booking->payment_status }}
@@ -148,6 +150,8 @@
             @if($booking->status == 'Pending')
               <a href="{{ route('admin.customize.accept.booking', $booking->id) }}" class="btn btn-success">Accept</a>
               <a href="{{ route('admin.customize.reject.booking', $booking->id) }}" class="btn btn-danger">Reject</a>
+            @elseif($booking->payment_status == 'Partial Paid' && $booking->status != 'Event Done')
+              <a href="{{route('admin.customize.payment.done', $booking->id)}}" class="btn btn-success event-done" data-id="{{$booking->id}}">Payment Complete</a>
             @elseif($booking->payment_status == 'Paid' && $booking->status != 'Event Done')
               <a href="{{ route('admin.customize.event.done', $booking->id) }}" class="btn btn-success event-done" data-id="{{ $booking->id }}">Event Done</a>
             @endif

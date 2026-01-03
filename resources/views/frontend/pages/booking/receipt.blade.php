@@ -95,7 +95,7 @@
     <div class="company-info">
         <h2>Eventre</h2>
         <p>01771250000</p>
-        <p><a href="mailto:lamianazat205@gmail.com">lamianazat205@gmail.com</a></p>
+        <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
         <p>Tongi, Gazipur, Dhaka</p>
     </div>
 
@@ -116,6 +116,7 @@
             <th>Date</th>
             <th>Start Time</th>
             <th>End Time</th>
+            <th>Dues</th>
             <th>Status</th>
         </tr>
         </thead>
@@ -123,10 +124,11 @@
         <tr>
             <td>{{ $booking->package->event->name }}</td>
             <td>{{ $booking->package->name }}</td>
-            <td>BDT {{ $booking->total_amount }}</td>
+            <td>BDT. {{ $booking->total_amount }}</td>
             <td>{{ $booking->date }}</td>
             <td>{{ $booking->start_time }}</td>
             <td>{{ $booking->end_time }}</td>
+            <td>BDT. {{ $booking->dues }}</td>
             <td>{{ $booking->payment_status }}</td>
         </tr>
         </tbody>

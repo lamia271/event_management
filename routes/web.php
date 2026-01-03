@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VendorController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackageServiceController;
@@ -37,6 +38,15 @@ use App\Models\Appointment;
 
             Route::get('/', [HomeController::class, 'homePage'])->name('admin.home.page');
 
+            //Vendor->
+            Route::get('/vendor/list', [VendorController::class, 'vendorList'])->name('admin.vendor.list');
+            Route::get('/create/vendor', [VendorController::class, 'createVendor'])->name('admin.create.vendor');
+            Route::post('/vendor/store', [VendorController::class, 'vendorStore'])->name('admin.vendor.store');
+            Route::get('/vendor/edit/{vendor_id}', [VendorController::class, 'vendorEdit'])->name('admin.vendor.edit');
+            Route::put('/vendor/update/{vendor_id}', [VendorController::class, 'vendorUpdate'])->name('admin.vendor.update');
+            Route::get('/vendor/delete/{vendor_id}', [VendorController::class, 'vendorDelete'])->name('admin.vendor.delete');
+            Route::get('/vendor/search', [VendorController::class, 'vendorSearch'])->name('admin.vendor.search');
+            
             //Events->
             Route::get('/event/list', [EventController::class, 'eventList'])->name('admin.event.list');
             Route::get('/create/event', [EventController::class, 'createEvent'])->name('admin.create.event');
@@ -90,6 +100,7 @@ use App\Models\Appointment;
             Route::get('/booking/accept/{id}', [BookingController::class, 'accept'])->name('admin.accept.booking');
             Route::get('/booking/reject/{id}', [BookingController::class, 'reject'])->name('admin.reject.booking');
             Route::get('/search/booking', [BookingController::class, 'search'])->name('admin.search.booking');
+            Route::get('/payment-done/{id}', [BookingController::class, 'markPaymentDone'])->name('admin.payment.done');
             Route::get('/event-done/{id}', [BookingController::class, 'markEventDone'])->name('admin.event.done');
             Route::post('/booking/auto-update-status/{id}', [BookingController::class, 'autoUpdateStatus']);
             
@@ -117,6 +128,7 @@ use App\Models\Appointment;
             Route::get('/customize/booking/reject/{id}', [CustomizeBookingController::class, 'customizeReject'])->name('admin.customize.reject.booking');
             Route::get('/customize/search/booking', [CustomizeBookingController::class, 'customizeSearch'])->name('admin.customize.search.booking');
             Route::get('/customize/event-done/{id}', [CustomizeBookingController::class, 'customizeMarkEventDone'])->name('admin.customize.event.done');
+            Route::get('/customize/payment-done/{id}', [CustomizeBookingController::class, 'customizeMarkPaymentDone'])->name('admin.customize.payment.done');
             Route::post('/customize/booking/auto-update-status/{id}', [CustomizeBookingController::class, 'customizeAutoUpdateStatus']);
 
             //Appointments->

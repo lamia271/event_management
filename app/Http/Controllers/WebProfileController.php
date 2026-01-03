@@ -99,7 +99,9 @@ class WebProfileController extends Controller
     public function makePayment($id)
     {
         $booking = Booking::find($id);
-        $booking->payment_status = 'Paid';
+        $tenPercent = $booking->total_amount * 0.10;
+        $booking->dues = $booking->total_amount - $tenPercent;
+        $booking->payment_status = 'Partial Paid';
         $booking->save();
         $this->payment($booking);
         return redirect()->route('view.profile');
@@ -163,8 +165,9 @@ class WebProfileController extends Controller
     {
 
         $booking = CustomizeBooking::find($id);
-
-        $booking->payment_status = 'Paid';
+        $tenPercent = $booking->total_amount * 0.10;
+        $booking->dues = $booking->total_amount - $tenPercent;
+        $booking->payment_status = 'Partial Paid';
         $booking->save();
         $this->customizePayment($booking);
 

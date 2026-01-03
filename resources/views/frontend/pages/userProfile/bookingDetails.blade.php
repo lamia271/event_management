@@ -16,6 +16,7 @@
                 <th scope="col">Start_time</th>
                 <th scope="col">End_time</th>
                 <th scope="col">Payment Status</th>
+                <th scope="col">Dues</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -26,46 +27,48 @@
             $startId = ($currentPage - 1) * $perPage + 1;
             @endphp
             @foreach($bookingDetails as $key => $data)
-            <tr>
-                <td>{{ $startId + $key }}</td>
-                <td>{{ $data->transaction_id }}</td>
-                <td>{{ $data->package->event->name }}</td>
-                <td>{{ $data->package->name }}</td>
-                <td>{{ $data->venue }}</td>
-                <td>{{ $data->total_amount }}</td>
-                <td>{{ $data->date }}</td>
-                <td>{{ $data->start_time }}</td>
-                <td>{{ $data->end_time }}</td>
-                <td>
-                    @if($data->status == 'Cancelled')
-                    Booking Cancelled
-                    @elseif($data->status == 'Reject')
-                    Booking Rejected
-                    @elseif($data->payment_status != 'Paid' && $data->created_at->diffInDays(now()) > 2)
-                    Not Paid & Booking Rejected
-                    @else
-                    {{ $data->payment_status }}
-                    @endif
-                </td>
-                <td>
-                    @if($data->payment_status != 'Paid' && $data->created_at->diffInDays(now()) > 2)
+                <tr>
+                    <td>{{ $startId + $key }}</td>
+                    <td>{{ $data->transaction_id }}</td>
+                    <td>{{ $data->package->event->name }}</td>
+                    <td>{{ $data->package->name }}</td>
+                    <td>{{ $data->venue }}</td>
+                    <td>{{ $data->total_amount }}</td>
+                    <td>{{ $data->date }}</td>
+                    <td>{{ $data->start_time }}</td>
+                    <td>{{ $data->end_time }}</td>
+                    <td>
+                        @if($data->status == 'Cancelled')
+                        Booking Cancelled
+                        @elseif($data->status == 'Reject')
+                        Booking Rejected
+                        @elseif($data->payment_status != 'Paid' && $data->created_at->diffInDays(now()) > 2)
+                        Not Paid & Booking Rejected
+                        @else
+                        {{ $data->payment_status }}
+                        @endif
+                    </td>
+                    <td>{{ $data->dues }} TK</td>
+                    <td>
+                        @if($data->payment_status == 'pending' && $data->created_at->diffInDays(now()) > 2)
 
-                    @elseif($data->status == 'Pending')
-                    <a class="btn-sm btn-danger" href="{{ route('cancel.booking', $data->id) }}">Cancel Booking</a>
-                    @elseif($data->status == 'Accept' && $data->payment_status != 'Paid' && $data->created_at->diffInDays(now()) <= 2) <div>
-                        <a class="btn-sm btn-primary" href="{{ route('make.payment', $data->id) }}">Make Payment</a>
-</div>
-<div>
-    <a class="btn-sm btn-danger" href="{{ route('cancel.booking', $data->id) }}">Cancel Booking</a>
-</div>
-@elseif($data->payment_status == 'Paid')
-<a class="btn-sm btn-success" href="{{ route('download.receipt', $data->id) }}">Download Receipt</a>
-@endif
-</td>
-</tr>
-@endforeach
-</tbody>
-</table>
-{{$bookingDetails->links()}}
+                        @elseif($data->status == 'Pending')
+                            <a class="btn-sm btn-danger" href="{{ route('cancel.booking', $data->id) }}">Cancel Booking</a>
+                        @elseif($data->status == 'Accept' && $data->payment_status == 'pending' && $data->created_at->diffInDays(now()) <= 2) 
+                            <div>
+                                <a class="btn-sm btn-primary" href="{{ route('make.payment', $data->id) }}">Make Payment</a>
+                            </div>
+                            <div>
+                                <a class="btn-sm btn-danger" href="{{ route('cancel.booking', $data->id) }}">Cancel Booking</a>
+                            </div>
+                        @elseif($data->payment_status !== 'pending')
+                            <a class="btn-sm btn-success" href="{{ route('download.receipt', $data->id) }}">Download Receipt</a>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+    {{$bookingDetails->links()}}
 </div>
 @endsection

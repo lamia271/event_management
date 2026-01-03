@@ -102,7 +102,7 @@
             <h2>Eventre</h2>
             <p>Tongi, Gazipur, Dhaka</p>
             <p>+880 1771-250000</p>
-            <p><a href="mailto:lamia@gmail.com">lamia@gmail.com</a></p>
+            <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
         </div>
 
         <!-- Customer Info on Right -->
@@ -125,6 +125,7 @@
                     <th>Decorations</th>
                     <th>Venue</th>
                     <th>Amount</th>
+                    <th>Dues</th>
                     <th>Date</th>
                     <th>Status</th>
                 </tr>
@@ -144,6 +145,7 @@
                     </td>
                     <td>{{ $booking->venue }}</td>
                     <td>{{ $booking->total_amount }}</td>
+                    <td>{{ $booking->dues }}</td>
                     <td>{{ $booking->date }}</td>
                     <td>
                         @if($booking->status == 'Cancelled')

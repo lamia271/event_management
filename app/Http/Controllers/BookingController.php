@@ -38,6 +38,16 @@ class BookingController extends Controller
         return redirect()->back();
     }
 
+    public function markPaymentDone($id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->payment_status = 'Paid';
+        $booking->dues = 0;
+        $booking->save();
+
+        return redirect()->back()->with('success', 'Booking marked as Payment Done');
+    }
+
     public function markEventDone($id)
     {
         $booking = Booking::findOrFail($id);

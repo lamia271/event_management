@@ -22,6 +22,7 @@
       <th scope="col">Id</th>
       <th scope="col">Name</th>
       <th scope="col">Event</th>
+      <th scope="col">Vendor</th>
       <th scope="col">Price</th>
       <th>Action</th>
     </tr>
@@ -39,6 +40,7 @@ $startId = ($currentPage - 1) * $perPage +1;
   <th scope="row">{{$startId + $key}}</th>
   <td>{{$data->name}}</td>
   <td>{{$data->event->name}}</td>
+  <td>{{$data->vendor->name}}</td>
   <td>BDT.{{$data->price}}</td>
 
   <td>

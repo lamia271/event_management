@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CustomizeFood;
 use App\Models\Event;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,7 +12,7 @@ class CustomizeFoodController extends Controller
 {
     public function customizeFoodList()
     { 
-        $customizeFoods = CustomizeFood::with('event')->get();
+        $customizeFoods = CustomizeFood::with(['event', 'vendor'])->get();
         $customizeFoods = CustomizeFood::paginate(15);
         return view('backend.pages.customizeFood.customizeFoodList', compact('customizeFoods'));
     }
@@ -26,6 +27,9 @@ class CustomizeFoodController extends Controller
                   ->orWhere('price', 'LIKE', '%' . $search . '%')
                   ->orWhereHas('event', function ($q) use ($search) {
                       $q->where('name', 'LIKE', '%' . $search . '%');
+                  })
+                  ->orWhereHas('vendor', function ($q) use ($search) {
+                      $q->where('name', 'LIKE', '%' . $search . '%');
                   });
         }
 
@@ -37,7 +41,8 @@ class CustomizeFoodController extends Controller
     public function createCustomizeFood()
     {
         $events = Event::all();
-        return view('backend.pages.customizeFood.createCustomizeFood',compact('events'));
+        $vendors = Vendor::all();
+        return view('backend.pages.customizeFood.createCustomizeFood',compact('events', 'vendors'));
     }
 
     public function customizeFoodStore(Request $request)
@@ -51,6 +56,7 @@ class CustomizeFoodController extends Controller
             [
                 'name' => 'required',
                 'event_id' => 'required',
+                'vendor_id' => 'required',
                 'price' => 'required|integer|min:1',
             ]
         );
@@ -64,6 +70,7 @@ class CustomizeFoodController extends Controller
         CustomizeFood::create([
                 'name' => $request->name,
                 'event_id' => $request->event_id,
+                'vendor_id' => $request->vendor_id,
                 'price' => $request->price,
                 
             ]);
@@ -76,8 +83,9 @@ class CustomizeFoodController extends Controller
     public function customizeFoodEdit(Request $request, $food_id)
     {
         $events= Event::all();
+        $vendors= Vendor::all();
         $foods = CustomizeFood::find($food_id);
-        return view('backend.pages.customizeFood.customizeFoodEditForm', compact('foods','events'));
+        return view('backend.pages.customizeFood.customizeFoodEditForm', compact('foods','events', 'vendors'));
 
     }
 
@@ -91,6 +99,7 @@ class CustomizeFoodController extends Controller
             [
                 'name' => 'required',
                 'event_id' => 'required',
+                'vendor_id' => 'required',
                 'price'=>'required'
             ]
         );
@@ -104,6 +113,7 @@ class CustomizeFoodController extends Controller
         $foods->update([
                 'name' => $request->name,
                 'event_id' => $request->event_id,
+                'vendor_id' => $request->vendor_id,
                 'price' => $request->price
             ]);
         notify()->success('Customize Food Updated Successfully.');

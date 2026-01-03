@@ -13,6 +13,17 @@
 
   <br>
   <div class="form-group">
+    <label for="">Vendor</label>
+    <select class="form-control" name="vendor_id" id="">
+    <option value ="{{$foods->vendor->id}}">{{$foods->vendor->name}}</option>
+      @foreach ($vendors as $data)
+     <option value ="{{$data->id}}">{{$data->name}}</option>
+     @endforeach 
+     </select>
+  </div>
+
+  <br>
+  <div class="form-group">
     <label for="">Event</label>
     <select class="form-control" name="event_id" id="">
     <option value ="{{$foods->event->id}}">{{$foods->event->name}}</option>

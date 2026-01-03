@@ -11,16 +11,20 @@ class CustomizeFood extends Model
 {
     use HasFactory;
     protected $table = 'customize_foods';
-    protected $guarded=[];
+    protected $guarded = [];
 
     public function event()
     {
         return $this->belongsTo(Event::class);
-
     }
 
     public function customizeBookings()
     {
         return $this->belongsToMany(CustomizeBooking::class, 'customize_booking_food');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
     }
 }
