@@ -192,7 +192,7 @@ Route::get('/sample/work', [WebSampleWorkController::class, 'sampleWork'])->name
             //Customize->     
             Route::get('/all/customize/events', [WebCustomizeController::class, 'allCustomizeEvents'])->name('all.customize.events');
             
-            //Booking->
+            //Booking-> 
             Route::get('/booking/form/{id}', [WebBookingController::class, 'bookingForm'])->name('booking.form');
             Route::post('/booking/store', [WebBookingController::class, 'bookingStore'])->name('booking.store');
             Route::get('/cancel/booking/{id}', [WebBookingController::class, 'cancelBooking'])->name('cancel.booking');
