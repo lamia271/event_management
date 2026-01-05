@@ -17,6 +17,7 @@
                 <th scope="col">End_time</th>
                 <th scope="col">Payment Status</th>
                 <th scope="col">Dues</th>
+                <th scope="col">Total Paid amount</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -49,6 +50,7 @@
                         @endif
                     </td>
                     <td>{{ $data->dues }} TK</td>
+                    <td>{{ $data->total_amount - $data->dues }} TK</td>
                     <td>
                         @if($data->payment_status == 'pending' && $data->created_at->diffInDays(now()) > 2)
 
@@ -62,7 +64,7 @@
                                 <a class="btn-sm btn-danger" href="{{ route('cancel.booking', $data->id) }}">Cancel Booking</a>
                             </div>
                         @elseif($data->payment_status !== 'pending')
-                            <a class="btn-sm btn-success" href="{{ route('download.receipt', $data->id) }}">Download Receipt</a>
+                            <a class="btn-sm btn-success" href="{{ route('download.receipt', $data->id) }}">Receipt</a>
                         @endif
                     </td>
                 </tr>

@@ -16,7 +16,7 @@ class PackageServiceController extends Controller
     public function packageServiceList()
     {
         $packages=PackageService::with('package')->get();
-        $packages=PackageService::paginate(4);
+        $packages=PackageService::paginate(20);
         //    dd($packages);
         return view('backend.pages.package_service.list',compact('packages'));
     }

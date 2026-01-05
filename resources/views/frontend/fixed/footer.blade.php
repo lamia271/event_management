@@ -8,7 +8,7 @@
           <div>
             <h4 style="color:white ;">Address</h4>
             <p style="color:white ;">
-              Tongi, Uttara, Dhaka<br>
+             Pallabi, Mirpur 12, Dhaka<br>
             </p>
           </div>
         </div>
@@ -17,8 +17,8 @@
         <div class="copyright-text">
           <div>
             <p style="color:white ;">
-              <strong>Phone:</strong>017000000000<br>
-              <strong>Email:</strong> admin@gmail.com<br>
+              <strong>Phone:</strong>01303810979<br>
+              <strong>Email:</strong>tanjinasraboni2001@gmail.com<br>
             </p>
           </div>
         </div>
